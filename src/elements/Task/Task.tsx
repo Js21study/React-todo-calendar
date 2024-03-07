@@ -15,10 +15,10 @@ export const Task: FC<DayProps> = ({ task, isEdit, tasks, setTasks }) => {
   const [selectedAnswers, setSelectedAnswers] = useState(task?.label);
 
   useEffect(() => {
-    if (isEdit && value === '') {
+    if (!isEdit && value === '') {
       setTasks([...tasks].filter((el) => el?.id !== task?.id));
     }
-  }, [tasks]);
+  }, [tasks, isEdit, value]);
 
   const changeTask = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (!!task) {
