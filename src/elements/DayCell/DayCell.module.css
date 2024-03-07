@@ -1,0 +1,12 @@
+.wrapper {
+  margin: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-around;
+}
+.text {
+  color: grey;
+  font-size: smaller;
+  margin: 0 0 8px 8px;
+}

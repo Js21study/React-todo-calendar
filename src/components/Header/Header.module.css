@@ -1,0 +1,27 @@
+.wrapper {
+  background-color: orange;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 36px;
+  color: white;
+}
+
+.btn {
+  display: flex;
+  padding: 8px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  color: white;
+}
+
+.icon {
+  margin-right: 4px;
+  width: 20px;
+  height: 20px;
+}

@@ -1,0 +1,41 @@
+.task {
+  background-color: white;
+  color: black;
+  padding: 0 4px;
+  border-radius: 4px;
+  padding: 2px;
+  cursor: auto;
+}
+
+.labels {
+  display: flex;
+  padding: 4px 0;
+  gap: 1px;
+}
+
+.homeLabel {
+  background-color: yellowgreen;
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.educationLabel {
+  background-color: blue;
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.hobbyLabel {
+  background-color: red;
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.taskName {
+  margin: 4px;
+  border: none;
+  cursor: grab;
+}

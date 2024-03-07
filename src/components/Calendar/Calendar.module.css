@@ -1,0 +1,35 @@
+.outer {
+  padding: 8px;
+}
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  width: 12px;
+  padding: 0 4px;
+}
+
+.btnGroup {
+  margin: 0 8px;
+}
+
+.btnGroup button {
+  margin-right: 4px;
+}
+
+.btnGroup button:last-of-type {
+  margin-left: 8px;
+}
+
+.search {
+  padding: 8px;
+  border-radius: 4px;
+  margin: 0 8px;
+}
+.dayOfWeek {
+  background-color: rgb(235, 235, 235) !important;
+  color: grey;
+}
