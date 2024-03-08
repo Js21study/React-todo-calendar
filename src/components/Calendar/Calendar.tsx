@@ -2,14 +2,15 @@ import React, { useRef, useState } from 'react';
 import { DayCell } from '../../elements/DayCell/DayCell';
 import { CalendarWrapper } from '../../elements/CalendarWrapper';
 import { Button } from '../../elements/Button';
+import { DayCellStyles } from '../../elements/DayCell/DayCellStyles';
+import { dataTasks } from '../../assets/data/tasks';
+import { exportToJSON } from '../../hooks/exportToJson';
+import { downloadCalendarImage } from '../../hooks/downloadCalendarImage';
 import ArrowUp from '../../assets/svg/arrow-up.svg';
 import ArrowDown from '../../assets/svg/arrow-down.svg';
 import JsonDownload from '../../assets/svg/download-json.svg';
 import PictureDownload from '../../assets/svg/download-picture.svg';
 import styles from './Calendar.module.css';
-import { DayCellStyles } from '../../elements/DayCell/DayCellStyles';
-import html2canvas from 'html2canvas';
-import { dataTasks } from '../../assets/data/tasks';
 
 export interface TaskProps {
   id: string;
@@ -36,8 +37,6 @@ const Calendar: React.FC = () => {
   const prevMonth = (): void => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
   };
-  console.log(tasks);
-
   const nextMonth = (): void => {
     setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
   };
@@ -66,7 +65,6 @@ const Calendar: React.FC = () => {
     for (let i = 0; i < numberOfDaysToShow; i++) {
       const day: Date = new Date(year, month, i - firstDayOfMonth + 1);
       const isCurrentMonth = i >= firstDayOfMonth && i < firstDayOfMonth + daysInMonth;
-
       days.push(
         <DayCell
           isCurrentMonth={isCurrentMonth}
@@ -80,33 +78,6 @@ const Calendar: React.FC = () => {
     return days;
   };
 
-  const exportToJSON = () => {
-    const jsonCalendarData = JSON.stringify(tasks, null, 2);
-
-    const blob = new Blob([jsonCalendarData], { type: 'application/json' });
-
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = 'calendar.json';
-    link.click();
-  };
-
-  const downloadCalendarImage = async () => {
-    try {
-      if (calendarRef.current) {
-        const canvas = await html2canvas(calendarRef.current);
-        const imageBlob = canvas.toDataURL('image/png');
-        const link = document.createElement('a');
-        link.href = imageBlob;
-        link.download = 'calendar.png';
-        link.click();
-      }
-    } catch (error) {
-      console.error('Error capturing calendar as image:', error);
-    }
-  };
-
   return (
     <div className={styles.outer}>
       <div className={styles.inner}>
@@ -117,13 +88,17 @@ const Calendar: React.FC = () => {
           <Button color="lightgray" padding="big" onClick={nextMonth}>
             <img src={ArrowUp} alt="arrow" className={styles.arrow} />
           </Button>
-          <input className={styles.search} type="text" value={search} onChange={searchByTask} />
+          <input
+            className={styles.search}
+            placeholder="...search"
+            type="text"
+            value={search}
+            onChange={searchByTask}
+          />
         </div>
-
         <h3>
           {currentDate.toLocaleString('en-US', { month: 'long' })} {year}
         </h3>
-
         <div className={styles.btnGroup}>
           <Button color="red" padding="big" onClick={() => filterTasks('hobby')}>
             Hobby
@@ -142,12 +117,15 @@ const Calendar: React.FC = () => {
 
       <div className={styles.inner}>
         <div></div>
-
         <div className={styles.btnGroup}>
-          <Button color="darkgray" padding="small" onClick={exportToJSON}>
+          <Button color="darkgray" padding="small" onClick={() => exportToJSON(tasks)}>
             <img src={JsonDownload} alt="json" width={40} height={24} />
           </Button>
-          <Button color="darkgray" padding="small" onClick={downloadCalendarImage}>
+          <Button
+            color="darkgray"
+            padding="small"
+            onClick={() => downloadCalendarImage(calendarRef)}
+          >
             <img src={PictureDownload} alt="picture" width={40} height={24} />
           </Button>
         </div>

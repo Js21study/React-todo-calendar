@@ -20,7 +20,6 @@ export const DayCell: FC<DayCallBlockProps> = ({ isCurrentMonth, tasks, setTasks
   };
   const drop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    console.log(e);
     const taskId = e.dataTransfer.getData('text/plain');
     const existingTask = tasks.find((task) => task?.id.toString() === taskId);
     const droppedDiv = e.nativeEvent.target as HTMLDivElement;
@@ -58,7 +57,6 @@ export const DayCell: FC<DayCallBlockProps> = ({ isCurrentMonth, tasks, setTasks
     );
     if (!existingTask) {
       const newTaskId = uuidv4();
-
       setTasks((prevTasks) => [
         ...prevTasks,
         {
@@ -75,19 +73,15 @@ export const DayCell: FC<DayCallBlockProps> = ({ isCurrentMonth, tasks, setTasks
 
   const onDragEnd = (result: DropResult) => {
     if (!result.destination) return;
-
     const { source, destination } = result;
     const updatedTasks = [...tasks];
-
     const [movedTask] = updatedTasks.splice(source.index, 1);
     updatedTasks.splice(destination.index, 0, movedTask);
-
     setTasks(updatedTasks);
   };
   const dragStart = (e: React.DragEvent<HTMLDivElement>, task: TaskProps) => {
     if (task) e.dataTransfer.setData('text/plain', task?.id);
   };
-  console.log(day.toISOString().substring(0, 10));
 
   return (
     <DragDropContext onDragEnd={onDragEnd}>
@@ -113,7 +107,6 @@ export const DayCell: FC<DayCallBlockProps> = ({ isCurrentMonth, tasks, setTasks
                     {...provided.droppableProps}
                   >
                     <span className={styles.text}> 1 card</span>
-
                     <Draggable key={task.id} draggableId={task.id.toString()} index={i}>
                       {(provided) => (
                         <div

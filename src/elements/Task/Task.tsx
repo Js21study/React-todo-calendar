@@ -15,9 +15,7 @@ export const Task: FC<DayProps> = ({ task, isEdit, tasks, setTasks }) => {
   const [selectedAnswers, setSelectedAnswers] = useState(task?.label);
 
   useEffect(() => {
-    if (!isEdit && value === '') {
-      setTasks([...tasks].filter((el) => el?.id !== task?.id));
-    }
+    if (!isEdit && value === '') setTasks([...tasks].filter((el) => el?.id !== task?.id));
   }, [tasks, isEdit, value]);
 
   const changeTask = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -38,9 +36,7 @@ export const Task: FC<DayProps> = ({ task, isEdit, tasks, setTasks }) => {
     if (selectedAnswers?.includes(answer)) {
       setSelectedAnswers(selectedAnswers.filter((item) => item !== answer));
     } else {
-      if (selectedAnswers) {
-        setSelectedAnswers([...selectedAnswers, answer]);
-      }
+      if (selectedAnswers) setSelectedAnswers([...selectedAnswers, answer]);
     }
 
     if (!!task) {
@@ -52,61 +48,56 @@ export const Task: FC<DayProps> = ({ task, isEdit, tasks, setTasks }) => {
         }
         return t;
       });
-      if (updatedTasks) {
-        setTasks(updatedTasks);
-      }
+      if (updatedTasks) setTasks(updatedTasks);
     }
   };
 
   return (
-    <>
-      <div className={styles.task} onClick={(e) => e.stopPropagation()} id={task?.id.toString()}>
-        <div className={styles.labels}>
-          {selectedAnswers?.map((label) => (
-            <div
-              key={label}
-              className={
-                label === 'home'
-                  ? styles.homeLabel
-                  : label === 'education'
-                  ? styles.educationLabel
-                  : label === 'hobby'
-                  ? styles.hobbyLabel
-                  : ''
-              }
-            ></div>
-          ))}
-        </div>
-
-        <textarea
-          value={value}
-          className={styles.taskName}
-          disabled={!isEdit}
-          onChange={changeTask}
-        />
-        {isEdit && (
-          <div>
-            <CustomCheckbox
-              label="Hobby"
-              checked={selectedAnswers?.includes('hobby')}
-              onChange={() => handleCheckboxChange('hobby')}
-              color="red"
-            />
-            <CustomCheckbox
-              label="Education"
-              checked={selectedAnswers?.includes('education')}
-              onChange={() => handleCheckboxChange('education')}
-              color="blue"
-            />
-            <CustomCheckbox
-              label="Home"
-              checked={selectedAnswers?.includes('home')}
-              onChange={() => handleCheckboxChange('home')}
-              color="yellowgreen"
-            />
-          </div>
-        )}
+    <div className={styles.task} onClick={(e) => e.stopPropagation()} id={task?.id.toString()}>
+      <div className={styles.labels}>
+        {selectedAnswers?.map((label) => (
+          <div
+            key={label}
+            className={
+              label === 'home'
+                ? styles.homeLabel
+                : label === 'education'
+                ? styles.educationLabel
+                : label === 'hobby'
+                ? styles.hobbyLabel
+                : ''
+            }
+          ></div>
+        ))}
       </div>
-    </>
+      <textarea
+        value={value}
+        className={styles.taskName}
+        disabled={!isEdit}
+        onChange={changeTask}
+      />
+      {isEdit && (
+        <div>
+          <CustomCheckbox
+            label="Hobby"
+            checked={selectedAnswers?.includes('hobby')}
+            onChange={() => handleCheckboxChange('hobby')}
+            color="red"
+          />
+          <CustomCheckbox
+            label="Education"
+            checked={selectedAnswers?.includes('education')}
+            onChange={() => handleCheckboxChange('education')}
+            color="blue"
+          />
+          <CustomCheckbox
+            label="Home"
+            checked={selectedAnswers?.includes('home')}
+            onChange={() => handleCheckboxChange('home')}
+            color="yellowgreen"
+          />
+        </div>
+      )}
+    </div>
   );
 };

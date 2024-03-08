@@ -7,7 +7,6 @@ interface ButtonProps {
 
 export const Button = styled.button<ButtonProps>`
   /* Base styles */
-
   padding: 8px;
   border-radius: 4px;
   color: #353535;
@@ -21,13 +20,9 @@ export const Button = styled.button<ButtonProps>`
   ${(props) => props.padding === 'small' && 'padding: 2px;'}
 
   ${(props) => props.color === 'lightgray' && 'background-color: #e4e3e3;'}
-
   ${(props) => props.color === 'red' && 'background-color: #ffb3b3;'}
-
   ${(props) => props.color === 'yellowgreen' && 'background-color: #9acd32;'}
-
   ${(props) => props.color === 'blue' && 'background-color: #cbcbf7;'}
-
   ${(props) => props.color === 'darkgray' && 'background-color: #cacaca;'}
 
   /* Hover effect */
